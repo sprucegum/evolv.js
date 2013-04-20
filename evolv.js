@@ -22,6 +22,7 @@ signalLUT = function(lut){
 
 signalLUT.prototype.lookUp = function(signal){
 	//search, then get value at index 
+	//let's try it with linear interpolation some time
 	return this.lut[this.getIndex(signal)][1];
 }
 

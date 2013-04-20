@@ -13,6 +13,10 @@ window.onresize = function(event) {
 	fitCanvas(canvas);
 };
 
+if (navigator.userAgent.search("Firefox") > 0){
+	window.requestAnimationFrame = window.mozRequestAnimationFrame;
+};
+
 main = function() {
 	fitCanvas(canvas);
 	
