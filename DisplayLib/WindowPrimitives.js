@@ -47,7 +47,7 @@ function textBlock(text,x,y,width, height, parent){
 	for (var i = 0; i < this.stext.length; i++){
 		word = new textLine(this.stext[i],cursor, line*(this.size+8), this.size);
 		word.width = word.textWidth(tctx);
-		console.log(cursor + word.width, this.width)
+		//console.log(cursor + word.width, this.width)
 		if ((cursor + word.width) > this.width){
 			cursor = 0;
 			line++;

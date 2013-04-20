@@ -85,13 +85,13 @@ windowObject.prototype.click = function(e) {
 	};
 	if (this.mouseDetect()){
 		//bubble down and interact with topmost object
-		console.log(this);
+		//console.log(this);
 		if (!this.dispList.click(e)){
 			//mousedown
 			if (e.type == "mousedown"){
 				if (this.draggable){
 					this.dragging = true;
-					//console.log(this);
+					console.log(this);
 					return true;
 				}
 			}

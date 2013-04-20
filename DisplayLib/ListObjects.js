@@ -15,7 +15,7 @@ runList.prototype.run =  function (){
 
 runList.prototype.add = function(element){
 	this.list.push(element);
-	console.log("adding, parent, child",this.parent, element);
+	//console.log("adding, parent, child",this.parent, element);
 	if (this.parent){
 		element.parent = this.parent;
 		element.xy();
