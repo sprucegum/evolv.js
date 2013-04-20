@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<script type='text/javascript' src='./DisplayLib/CanvasLib.js'> </script>
+		<script type='text/javascript' src='./DisplayLib/ListObjects.js'> </script>
+		<script type='text/javascript' src='./DisplayLib/WindowObject.js'> </script>
+		<script type='text/javascript' src='./DisplayLib/WindowPrimitives.js'> </script>
+		<script type='text/javascript' src='./DisplayLib/WindowObjectEffect.js'> </script>
+		<script type='text/javascript' src='./DisplayLib/Effects.js'> </script>
+		<script type='text/javascript' src='./DisplayLib/JMath.js'> </script>
+
+		<style>
+		@font-face {
+		    font-family: 'wendy';
+		    src: url('fonts/wendy.ttf');
+		}
+		@font-face {
+		    font-family: 'F25';
+		    src: url('fonts/F25_Bank_Printer.ttf');
+		}
+
+		</style>
+		<script>
+		// Static variables, images, etc
+		PIXEL = 12;
+		BLOCK = 4*PIXEL;
+		Jade = [[1,1,1,0,1,1,1,0,1,1,0,0,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,1,1,1,0,1,1,1],
+			[0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0],
+			[0,1,0,0,1,1,1,0,1,0,1,0,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,0,0,1,1,1,0,1,1,1],
+			[0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0],
+			[1,1,0,0,1,0,1,0,1,1,0,0,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1]
+		];
+
+		textStrings = [	"Yes, Yes, Y'all!",
+				"Welcome to the website of",
+				"This, is mainly a test for my rudimentary canvas engine JTK"
+		];
+
+		imagelist = ["DisplayLib/cursor.png"];
+		cursorimg = new Image();
+		cursorimg.src = imagelist[0];
+		
+
+		// Fires up the loop
+		
+		window.onload = function(event){
+			mouse = new mouseCursor(cursorimg);
+			//mouse.dispList.effList.list.push(shizzle);
+			ticks = 0;
+			
+			canvas = document.getElementById("evolvWorld");
+			canvas.dispList = new displayList();
+			canvas.runList = new runList();
+			canvas.runList.add(mouse);
+	
+			bg = new backGround();
+			canvas.dispList.add(bg);
+			canvas.runList.add(bg);
+			mouse.parent = bg;
+			//canvas.dispList.parent = bg;
+			
+			var bit_painter = new drawBits(Jade,8 + window.innerWidth/2,(8*5)+5,8);
+			bit_painter.color = "#444"
+			bit_painter.draggable = true;
+
+			textL = new textLine(textStrings[0],8,window.innerHeight - 72,64);
+			textL.draggable = true;
+			textL.font = "'wendy'";
+			textL.fill = "rgb(0,0,0)";
+			bg.addChild(textL);
+			
+			tW = new textWindow("Welcome","What's up, this is my site! Hope you like it!",250,250,400,600);
+			tW.font = "'F25'";
+			tW.fill = "rgb(0,0,0)";
+			//canvas.runList.add(tW);
+			bg.addChild(tW);
+			
+			bg.addChild(bit_painter);
+
+			var bit_painterhl = new drawBits(Jade, bit_painter.width/2 +8,-8,8);
+			bit_painter.parent = bg;
+			bit_painterhl.color = "#AAA";
+			bit_painterhl.parent = bit_painter;
+			bit_painter.addChild(bit_painterhl);
+			canvas.dispList.add(mouse);
+			
+			canvas.onmousemove = canvas.ontouchmove = function(e){mouse.move(e)};
+			
+			canvas.onmousedown = 
+			canvas.touchstart = 
+			canvas.touchend = 
+			canvas.onmouseup = 
+			canvas.oncontextmenu = function(e){
+				canvas.dispList.click(e);	
+			};
+			main();
+		};
+
+
+		</script>
+	</head>
+	<body style ="background-color: black; margin:0;">
+		<canvas id="evolvWorld"></canvas>
+	</body>
+
+</html>
