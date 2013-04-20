@@ -43,22 +43,27 @@ signalLUT.prototype.bSearch = function (low,high,value){
 	var target = Math.floor(low + ((high - low)/2));
 	console.log(target,this.lut);
 	if (this.lut[target][0] == value){
+		console.log("check1");
 		return target;
-	} else if (this.lut[target][0] >= value){
+	} else if (this.lut[target][0] > value){
+		console.log("chec2k2");
 		if (target > 0){
-			if (this.lut[target-1][0] <= value){
+			console.log("check2");
+			if (this.lut[target-1][0] < value){
 				return this.returnClosest(target-1,target,value);
 			} else {
-				return this.bSearch(low,target,value);
+				return this.bSearch(low,target-1,value);
 			}
 		}
 		return target;	
 	} else {
+		console.log("check32");
 		if (target < (this.lut.length - 1)){
-			if (this.lut[target-1][0] <= value){
+			console.log("checkasd32");
+			if (this.lut[target+1][0] > value){
 				return this.returnClosest(target,target+1,value);
 			} else {
-				return this.bSearch(target,high,value);
+				return this.bSearch(target+1 ,high,value);
 			}
 		}
 		return target;	
@@ -68,7 +73,8 @@ signalLUT.prototype.bSearch = function (low,high,value){
 }
 
 signalLUT.prototype.returnClosest = function(lowIndex,highIndex, value){
-	if ((value - this.lut[lowIndex][0]) > (this.lut[this.highIndex][0] - value)){
+	console.log("return closest");
+	if ((value - this.lut[lowIndex][0]) > (this.lut[highIndex][0] - value)){
 		// If the higher number is closer
 		return highIndex;
 	} else {
