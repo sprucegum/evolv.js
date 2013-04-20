@@ -33,6 +33,21 @@ organNode.prototype.move = function(inSig,outSig){
 organNode.prototype.reproduce = function(inSig,outSig){
 	// Reproduction virtual machine
 	// Genome pointer, body pointer
+	// Reproduction variables
+	// Total Energy, Energy Consumed, Accumulator
+	
+
+	//external signals ... enable, disable
+
+	//internal ISA
+	//one code for each organ, placement
+	// create, modify, or delete (absorb) nodes
+	// if statements based on energy or accumulator
+	// accumulator increment, decrement, reset
+	// control codes to jump pointer
+
+	// for luts, there will be a control code, then the length of the LUT,
+	// then finally, there will be the LUT's themselves
 	
 }
 
