@@ -59,7 +59,7 @@ function displayList(){
 	this.effList = new effectList();
 
 }
-
+// List needs a sort function to ensure the right object is rendered first in each stack
 displayList.prototype.draw = function(){
 	canvas = document.getElementById("evolvWorld");
 	context = canvas.getContext("2d");

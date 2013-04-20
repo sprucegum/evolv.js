@@ -1,17 +1,55 @@
 // Creature Related Classes
 
-organNode = function(parent,fsT,bsT,ffT,fbT){ 
+organNode = function(parent,fsT,bsT,ffT,bfT){ 
 	// Takes as input the parent, as well as the
 	//Forward and Backward signal tables, function tables
 	this.children = [];
 	this.parent = parent;
 	this.forwardSignal = 0.0;
 	this.backwardSignal = 0.0;
+	this.genome = [];
+	this.fsT = fsT; 	//this.forwardSigTable = fsT;
+	this.bsT = bsT; 	//this.backwardSigTable = bsT;
+	this.ffT = fft; 	//this.forwardFuncTable = ffT;
+	this.bfT = bfT;		//this.backwardFuncTable = bfT;
+	// each organ function has it's own look up table.
 }
 
-organNode.prototype.run = function(){
+// Each node has the potential to serve as any other node
+
+organNode.prototype.process = function(inSig,outSig){
+	// Look at forwardSignal, update forward output
+
+	// call children
+
+	// look at backward signal, update backward output
+}
+
+
+organNode.prototype.move = function(inSig,outSig){
 
 }
+
+organNode.prototype.reproduce = function(inSig,outSig){
+	// Reproduction virtual machine
+	// Genome pointer, body pointer
+	
+}
+
+organNode.prototype.eat = function(inSig,outSig){
+
+}
+
+organNode.prototype.writeResponse = function(inSig,outSig){
+	// determines which table,
+
+}
+
+organNode.prototype.toggleEcho = function(inSig,outSig){
+	// determines if function outputs are routed to main outputs
+}
+
+
 
 signalLUT = function(lut){
 	// Look up table is sorted list	
