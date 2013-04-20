@@ -26,13 +26,15 @@ signalLUT.prototype.lookUp = function(signal){
 	return this.lut[this.getIndex(signal)][1];
 }
 
-signalLUT.prototype.addReaction = function(inSignal,outSignal){
+signalLUT.prototype.addResponse = function(inSignal,outSignal){
 	// insert the correct position of the look-up list.
-
+	var index = this.getIndex(inSignal);
+	this.lut.splice(index+1,0,[inSignal,outSignal]);
 }
 
-signalLUT.prototype.replaceReaction = function(inSignal,outSignal){
-
+signalLUT.prototype.replaceResponce = function(inSignal,outSignal){
+	var index = this.getIndex(inSignal);
+	this.lut.list[index] = [inSignal,outSignal];
 }
 
 signalLUT.prototype.getIndex = function(signal){
@@ -74,7 +76,7 @@ signalLUT.prototype.bSearch = function (low,high,value){
 }
 
 signalLUT.prototype.returnClosest = function(lowIndex,highIndex, value){
-	console.log("return closest");
+	console.log("return closest:l,h",lowIndex,highIndex);
 	if ((value - this.lut[lowIndex][0]) > (this.lut[highIndex][0] - value)){
 		// If the higher number is closer
 		return highIndex;
