@@ -28,13 +28,13 @@ shizzle = new Effect(function(context, parent){
 			accumulator += Math.random();
 			var rgba = [0,0,0,0];
 			
-			angle = Math.sin(Math.PI*accumulator/1023);
+			angle = Math.sin(Math.PI*accumulator/100);
 			//console.log(parent.pixels.data[(i*parent.height + j*parent.width) + 3]);	
 			
 			if (0.001>Math.random())
-			if (parent.pixels.data[(i*parent.height + j*parent.width) + 3] != 0){ //If not transparent
+			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
 				//Spawn blurbot
-				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), blurKern, 20, angle);
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), blurKern, Math.round(20*Math.random()) + 10, angle);
 				parent.addChild(bB);
 				//console.log(angle); 
 
@@ -55,13 +55,13 @@ function blurBot(x, y, parent, pather, kernel, lifetime, angle){
 	this.y = y;
 	this.width = 3;
 	this.height = 3;
-	this.dx = Math.round(1.5*Math.sin(angle), canvas.width);
-	this.dy = Math.round(2.0*Math.cos(angle), canvas.width);
+	this.dx = Math.round(0.5*Math.sin(angle), canvas.width);
+	this.dy = Math.round(0.5*Math.cos(angle), canvas.width);
 	this.len = 4;
 	this.parent = parent;
 	this.pather = pather;
 	this.pather.parent = this;
-	this.ddy = 0.3;
+	this.ddy = 0.06;
 	this.angle;
 	this.kernel = kernel
 	this.lifetime = lifetime;
@@ -73,9 +73,9 @@ blurBot.prototype.kernel = function(context, parent){
 
 function blurKern (context, parent){
 	effMatrix = [	
-		[0.05,0.05,0.05],
-		[-0.01,0.1,0.01,0.05],
-		[0.05,0.05,0.05],
+		[-0.05,-0.05,-0.05],
+		[0.05,0.1,0.01,0.05],
+		[0.1,0.1,0.1]
 
 	];
 	//console.log(parent, context);
