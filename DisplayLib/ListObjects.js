@@ -72,7 +72,8 @@ function displayList(parent){
 displayList.prototype.draw = function(context){
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
-			this.parent.runningIndex = i;
+			if (this.parent)
+				this.parent.runningIndex = i;
 			this.list[i].draw(context);
 		};
 	};
@@ -81,10 +82,14 @@ displayList.prototype.draw = function(context){
 displayList.prototype.click = function(e){
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
-			 this.parent.runningIndex = i;
-			 if(this.list[i].click(e)){
-				return true;
-			};
+			if (this.list[i].clickable){
+				if (this.parent)
+					this.parent.runningIndex = i;
+				 	
+				 if(this.list[i].click(e)){
+					return true;
+				};
+			}
 		};
 	};
 	return false;

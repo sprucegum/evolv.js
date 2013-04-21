@@ -180,6 +180,7 @@ mouseCursor.prototype.run = function(){
 	this.dy = this.y - this.lasty; 
 	this.lastx = this.x;
 	this.lasty = this.y;
+	this.runList.run();
 }
 
 mouseCursor.prototype.click = function(){
