@@ -15,7 +15,9 @@ window.onresize = function(event) {
 
 if (navigator.userAgent.search("Firefox") > 0){
 	window.requestAnimationFrame = window.mozRequestAnimationFrame;
-};
+} else if (navigator.userAgent.search("WebKit") > 0){
+	window.requestAnimationFrame = window.webkitRequestAnimationFrame;
+}
 
 main = function() {
 	
@@ -25,6 +27,7 @@ main = function() {
 	
 	//console.log(mouse.x,mouse.y);
 	//window.mozRequestAnimationFrame( main ) 
+	//window.requestAnimationFrame( main );
 	window.requestAnimationFrame( main );
 	ticks++;
 

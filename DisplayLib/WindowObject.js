@@ -16,6 +16,7 @@ windowObject = function(parent){
 	this.parent = parent;
 	this.gx = 0;
 	this.gy = 0;
+	this.minwidth = this.minheight = 0;
 	this.clickable = true;
 };
 windowObject.prototype.addChild = function(child) {
@@ -35,8 +36,10 @@ windowObject.prototype.decorate = function(){
 	this.runList.list.splice(0,0,this.resizer);
 };
 windowObject.prototype.resize = function(){
+
 	this.width += mouse.dx;
 	this.height += mouse.dy;
+
 	
 }
 

@@ -19,6 +19,7 @@ function textWindow(title,text,x,y,width, height){
 	this.draggable = true;
 	this.addChild(new textLine(title, 4, 0, this.size + 4));
 	this.addChild(new textBlock(text, 0, this.size +8, width, height - (this.size +8) , this));
+	this.minwidth = 20;
 	this.decorate();
 }
 
