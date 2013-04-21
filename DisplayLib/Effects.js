@@ -2,7 +2,7 @@
 	Effect Class
 */
 
-drippy = new effectKernel(function(context, parent){
+drippy = new Effect(function(context, parent){
 	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
 	for (var i=0; i< parent.width;i++){
 		for(var j=0; j < parent.height;j++){
@@ -18,9 +18,10 @@ drippy = new effectKernel(function(context, parent){
 	}
 });
 
-shizzle = new effectKernel(function(context, parent){
+shizzle = new Effect(function(context, parent){
 	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
 	accumulator = 0;
+	//console.log("running shizzle",parent);
 	effMatrix = [	
 			[0.05,0.05,0.05],
 			[-0.01,0.1,0.01,0.05],
@@ -71,7 +72,7 @@ shizzle = new effectKernel(function(context, parent){
 	}
 });
 
-blur = new effectKernel(function(context, parent){
+blur = new Effect(function(context, parent){
 	effMatrix = [	[0.05,0.05,0.05],
 			[0.05,0.05,0.05],
 			[0.05,0.05,0.05]

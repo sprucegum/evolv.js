@@ -5,9 +5,12 @@ function runList(parent){
 	this.parent = parent;
 }
 runList.constructor = runList;
+
 runList.prototype.run =  function (){
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
+			if (this.parent)
+				this.parent.runningIndex = i;
 			this.list[i].run();
 		};
 	};
@@ -34,6 +37,7 @@ effectList.prototype.add = function(element){
 };
 
 effectList.prototype.run = function (context){
+	//console.log("running effectlist",this.parent);
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
 			this.list[i].run(context,this.parent);
@@ -61,26 +65,23 @@ displayList.constructor = displayList;
 function displayList(parent){
 	this.parent = parent;
 	this.list = [];
-	this.effList = new effectList(parent);
+	this.effList = new effectList(this.parent);
 
 }
 // List needs a sort function to ensure the right object is rendered first in each stack
 displayList.prototype.draw = function(context){
-
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
+			this.parent.runningIndex = i;
 			this.list[i].draw(context);
 		};
 	};
-	if (this.effList.length > 0){
-		for (var j = 0;j<this.efflist.length; j++){
-			this.effList[j](context);
-		}
-	};
+	this.effList.run(context);
 }
 displayList.prototype.click = function(e){
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
+			 this.parent.runningIndex = i;
 			 if(this.list[i].click(e)){
 				return true;
 			};

@@ -167,7 +167,7 @@ function mouseCursor(img){
 };
 mouseCursor.prototype.draw = function(context){
 	context.drawImage(this.img,this.x,this.y);
-	this.dispList.run(context);
+	this.dispList.draw(context);
 	//console.log(this.x,this.y);
 }
 mouseCursor.prototype.move = function(e){		
