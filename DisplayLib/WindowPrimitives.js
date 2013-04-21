@@ -12,13 +12,13 @@ function textWindow(title,text,x,y,width, height){
 	this.stroke = "rgba(0,0,0,128)";
 	this.fill = "rgba(255,255,255,64)";
 
-	this.font = "Arial";
+	this.font = "'F25'";
 	this.height = height;
 	this.width = width;
 	this.size = 16;
 	this.draggable = true;
-	this.addChild(new textLine(title, 4, 0, 16));
-	this.addChild(new textBlock(text, 0, this.size + 32, width, height , this));
+	this.addChild(new textLine(title, 4, 0, this.size + 4));
+	this.addChild(new textBlock(text, 0, this.size +8, width, height - (this.size +8) , this));
 }
 
 textBlock.prototype = new windowObject();
@@ -45,18 +45,19 @@ function textBlock(text,x,y,width, height, parent){
 	tcanvas.width = width;
 	tctx = tcanvas.getContext("2d");
 	for (var i = 0; i < this.stext.length; i++){
-		word = new textLine(this.stext[i],cursor, line*(this.size+8), this.size);
+		word = new textLine(this.stext[i],cursor, line*(this.size), this.size);
+		
 		word.font = this.font;
 		word.width = word.textWidth(tctx);
 		//console.log(cursor + word.width, this.width)
 		if ((cursor + word.width) > this.width){
 			cursor = 0;
-			line++;
+			++line;
 			//console.log(line);
 			word.x = 0;
 			word.y = line*(this.size);
 		}
-		cursor += word.width + this.size;
+		cursor += word.width + (1.25*this.size);
 
 		this.addChild(word);
 		
@@ -78,8 +79,7 @@ function textLine(text,x,y,size){
 	this.y = y;
 	this.stroke = "rgba(0,0,0,128)";
 	this.fill = "rgba(255,255,255,64)";
-
-	this.font = "Arial";
+	this.font = "'F25'"
 	this.height = size;
 	this.size = size;
 	this.draggable = false;
@@ -142,6 +142,7 @@ backGround.prototype.draw = function (context){
 mouseCursor.prototype = new windowObject();
 mouseCursor.constructor = mouseCursor;
 function mouseCursor(img){
+	this.dispList = new displayList(this);
 	this.img = img;
 	this.canvas = document.createElement('canvas');
 	if (this.canvas){
@@ -166,7 +167,7 @@ function mouseCursor(img){
 };
 mouseCursor.prototype.draw = function(context){
 	context.drawImage(this.img,this.x,this.y);
-	this.dispList.effList.run(context,this);
+	this.dispList.run(context);
 	//console.log(this.x,this.y);
 }
 mouseCursor.prototype.move = function(e){		
@@ -216,6 +217,6 @@ drawBits.prototype.draw = function(context) {
 			}
 		}
 	}
-	this.dispList.draw();
+	this.dispList.draw(context);
 };
 

@@ -46,7 +46,7 @@
 		
 		window.onload = function(event){
 			mouse = new mouseCursor(cursorimg);
-			//mouse.dispList.effList.list.push(shizzle);
+			//mouse.dispList.effList.add(shizzle);
 			ticks = 0;
 			
 			canvas = document.getElementById("evolvWorld");
@@ -55,10 +55,11 @@
 			canvas.runList.add(mouse);
 	
 			bg = new backGround();
+			canvas.dispList.parent = bg;
 			canvas.dispList.add(bg);
 			canvas.runList.add(bg);
 			mouse.parent = bg;
-			//canvas.dispList.parent = bg;
+			
 			
 			var bit_painter = new drawBits(Jade,8 + window.innerWidth/2,(8*5)+5,8);
 			bit_painter.color = "#444"
@@ -70,7 +71,7 @@
 			textL.fill = "rgb(0,0,0)";
 			bg.addChild(textL);
 			
-			tW = new textWindow("Welcome","What's up, this is my site! Hope you like it!",250,250,300,200);
+			tW = new textWindow("Hello World","This is a test platform for JTK and its first application, evolv.js.",window.innerWidth/2 - 150,250,300,150);
 			tW.font = "'F25'";
 			tW.fill = "rgb(0,0,0)";
 			//canvas.runList.add(tW);
@@ -85,6 +86,10 @@
 			bit_painter.addChild(bit_painterhl);
 			canvas.dispList.add(mouse);
 			
+	
+			context = canvas.getContext("2d");
+			
+
 			canvas.onmousemove = canvas.ontouchmove = function(e){mouse.move(e)};
 			
 			canvas.onmousedown = 
@@ -94,6 +99,7 @@
 			canvas.oncontextmenu = function(e){
 				canvas.dispList.click(e);	
 			};
+			fitCanvas(canvas);
 			main();
 		};
 

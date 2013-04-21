@@ -3,21 +3,18 @@
  Requires ListObjects
 */
 
-windowObject = function(){
+windowObject = function(parent){
 	this.x = this.y = this.height = this.width = this.z = 0;
 	this.color = "#203";
 	this.outline = "#406";
 	this.model = null;
-	this.dispList = new displayList();
-	this.runList = new runList();
-	this.dispList.parent = this;
-	this.runList.parent = this;
+	this.dispList = new displayList(this);
+	this.runList = new runList(this);
 	this.draggable = false;
 	this.dragging = false;
-	this.parent = null;
+	this.parent = parent;
 	this.gx = 0;
 	this.gy = 0;
-			
 };
 windowObject.prototype.addChild = function(child) {
 	this.runList.add(child);

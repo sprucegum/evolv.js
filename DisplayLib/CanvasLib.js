@@ -18,10 +18,9 @@ if (navigator.userAgent.search("Firefox") > 0){
 };
 
 main = function() {
-	fitCanvas(canvas);
 	
 	canvas.runList.run();
-	canvas.dispList.draw();
+	canvas.dispList.draw(context);
 
 	
 	//console.log(mouse.x,mouse.y);
