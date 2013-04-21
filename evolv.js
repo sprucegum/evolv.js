@@ -8,9 +8,10 @@ organNode = function(parent,fsT,bsT,ffT,bfT){
 	this.forwardSignal = 0.0;
 	this.backwardSignal = 0.0;
 	this.genome = [];
+	this.size = [];
 	this.fsT = fsT; 	//this.forwardSigTable = fsT;
 	this.bsT = bsT; 	//this.backwardSigTable = bsT;
-	this.ffT = fft; 	//this.forwardFuncTable = ffT;
+	this.ffT = fft; 	//this.forwardFuncTable = ffT; translates external signals to function signals
 	this.bfT = bfT;		//this.backwardFuncTable = bfT;
 	// each organ function has it's own look up table.
 }
@@ -31,14 +32,14 @@ organNode.prototype.move = function(inSig,outSig){
 }
 
 organNode.prototype.reproduce = function(inSig,outSig){
-	// Reproduction virtual machine
-	// Genome pointer, body pointer
+	/* Reproduction virtual machine
+	// Genome pointer, body pointer, link pointer
 	// Reproduction variables
 	// Total Energy, Energy Consumed, Accumulator
 	
 
 	//external signals ... enable, disable
-
+taylor series
 	//internal ISA
 	//one code for each organ, placement
 	// create, modify, or delete (absorb) nodes
@@ -47,8 +48,19 @@ organNode.prototype.reproduce = function(inSig,outSig){
 	// control codes to jump pointer
 
 	// for luts, there will be a control code, then the length of the LUT,
-	// then finally, there will be the LUT's themselves
-	
+	// then finally, there will be the LUT elements themselves
+	// there may be control codes within the lut structure, a series of NOPS's  
+	// may indicate an upcoming control code, which could be used to take snippets
+	// of other LUT's, or to selectively code the node depending on growth stage
+
+	// 
+	*/
+
+	// node format will have a code for node type, size, tuning, and its lookup tables
+
+	// there will be an internal link stack with, pop, push, and branch to link.
+
+	// there will be two character conditional codes, where the condition is specified and if true, the next code is executed, otherwise, it is skipped. 
 }
 
 organNode.prototype.eat = function(inSig,outSig){

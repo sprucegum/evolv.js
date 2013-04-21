@@ -46,6 +46,7 @@ function textBlock(text,x,y,width, height, parent){
 	tctx = tcanvas.getContext("2d");
 	for (var i = 0; i < this.stext.length; i++){
 		word = new textLine(this.stext[i],cursor, line*(this.size+8), this.size);
+		word.font = this.font;
 		word.width = word.textWidth(tctx);
 		//console.log(cursor + word.width, this.width)
 		if ((cursor + word.width) > this.width){
@@ -55,8 +56,8 @@ function textBlock(text,x,y,width, height, parent){
 			word.x = 0;
 			word.y = line*(this.size);
 		}
-		cursor += word.width + 1.5*this.size;
-		word.font = this.font;
+		cursor += word.width + this.size;
+
 		this.addChild(word);
 		
 	}
