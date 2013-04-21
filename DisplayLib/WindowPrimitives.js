@@ -57,7 +57,7 @@ function textBlock(text,x,y,width, height, parent){
 			word.x = 0;
 			word.y = line*(this.size);
 		}
-		cursor += word.width + (1.25*this.size);
+		cursor += word.width + (0.75*this.size);
 
 		this.addChild(word);
 		

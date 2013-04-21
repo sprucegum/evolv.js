@@ -45,6 +45,7 @@
 		// Fires up the loop
 		
 		window.onload = function(event){
+			document.getElementById("fontload").style.display = "none";
 			mouse = new mouseCursor(cursorimg);
 			mouse.dispList.effList.add(shizzle);
 			ticks = 0;
@@ -59,6 +60,8 @@
 			canvas.dispList.add(bg);
 			canvas.runList.add(bg);
 			mouse.parent = bg;
+			mouse.x = window.innerWidth/2;
+			mouse.y = 350;
 			
 			
 			var bit_painter = new drawBits(Jade,8 + window.innerWidth/2,(8*5)+5,8);
@@ -108,6 +111,7 @@
 	</head>
 	<body style ="background-color: black; margin:0;">
 		<canvas id="evolvWorld"></canvas>
+		<div id="fontload" style="font-family: F25;">.</div>
 	</body>
 
 </html>
