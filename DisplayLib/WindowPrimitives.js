@@ -19,6 +19,7 @@ function textWindow(title,text,x,y,width, height){
 	this.draggable = true;
 	this.addChild(new textLine(title, 4, 0, this.size + 4));
 	this.addChild(new textBlock(text, 0, this.size +8, width, height - (this.size +8) , this));
+	this.decorate();
 }
 
 textBlock.prototype = new windowObject();
@@ -62,6 +63,19 @@ function textBlock(text,x,y,width, height, parent){
 		this.addChild(word);
 		
 	}
+}
+
+textBlock.prototype.resize = function(){
+	this.width += mouse.dx;
+	this.height += mouse.dy;
+	this.dispList = new displayList(this);
+	this.runList = new runList(this);
+	this.replacement = new textBlock(this.text, this.x, this.y, this.width, this.height, this.parent);
+	for (var i=0; i<this.replacement.dispList.list.length; i++){
+		this.addChild(this.replacement.dispList.list[i]);
+	}
+	this.replacement = null;
+	
 }
 /*
 textBlock.prototype.draw = function(context){

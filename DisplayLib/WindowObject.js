@@ -12,6 +12,7 @@ windowObject = function(parent){
 	this.runList = new runList(this);
 	this.draggable = false;
 	this.dragging = false;
+	this.resizing = false;
 	this.parent = parent;
 	this.gx = 0;
 	this.gy = 0;
@@ -21,6 +22,23 @@ windowObject.prototype.addChild = function(child) {
 	this.runList.add(child);
 	this.dispList.add(child);
 };
+windowObject.prototype.decorate = function(){
+	this.resizer = new windowObject(this);
+	this.resizer.draggable = true;
+	this.resizer.resizeable = true;
+	this.resizer.x = this.width - 18;
+	this.resizer.y = this.height - 18;
+	this.resizer.width = 16;
+	this.resizer.height = 16;
+	this.resizer.resize = function(){};
+	this.dispList.list.push(this.resizer);
+	this.runList.list.splice(0,0,this.resizer);
+};
+windowObject.prototype.resize = function(){
+	this.width += mouse.dx;
+	this.height += mouse.dy;
+	
+}
 
 windowObject.prototype.draw = function(context) {
 	//console.log(this,context);
@@ -60,6 +78,8 @@ windowObject.prototype.xy = function(){
 }
 
 
+
+
 windowObject.prototype.run = function(){
 	//console.log(this);
 
@@ -67,7 +87,17 @@ windowObject.prototype.run = function(){
 		this.x = this.x + mouse.dx;	
 		this.y = this.y + mouse.dy;	
 	} 
+	if (this.resizeable && this.dragging){
+		this.parent.width += mouse.dx;
+		this.parent.height += mouse.dy;
+		this.parent.resizing = true;
+	}
+	if (this.parent.resizing){
+	
+		this.resize();
+	}
 	this.xy();
+	this.resizing = false;
 	this.runList.run();
 	return true;
 }
