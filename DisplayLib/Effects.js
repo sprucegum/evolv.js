@@ -174,9 +174,9 @@ function dripKern (context, parent){
 
 function blurKern (context, parent){
 	effMatrix = [	
-		[-0.05,-0.05,-0.05],
-		[0.05,0.1,0.01,0.05],
-		[0.1,0.1,0.1]
+		[2,0.0,0.0],
+		[0.0,0.0,0.0],
+		[0.0,0.0,0.0]
 
 	];
 	//console.log(parent, context);
@@ -184,29 +184,29 @@ function blurKern (context, parent){
 	ty = constrain(0,parent.y,canvas.height);
 	imgData = context.getImageData(tx, ty, 1, 1 );
 	if (imgData){
-		for (var n = parent.len;n>=0;n--){
 		
-			//context.putImageData(imgData, tx , ty );
-			if (true){
-				for (var k=0;k<effMatrix[0].length;k++){
-					for (var l=0;l<effMatrix.length;l++){
-						var tx = constrain(0,parent.x + k - effMatrix[0].length/2, canvas.width);
-						var ty =  constrain(0,parent.y  + l - effMatrix.length/2 , canvas.height);
-						pixel = context.getImageData( tx, ty,1,1)
-						if (pixel){
-							for(var c=0; c<4;c++){
-								//console.log(imgData);
-								imgData.data[c] = constrain(0, effMatrix[l][k]*pixel.data[c] + imgData.data[c], 255);
-		
-							}
-						}
-						//console.log(context,tx,ty);
-						context.putImageData(imgData,tx, ty);
+
+		//context.putImageData(imgData, tx , ty );
+
+		for (var k=0;k<effMatrix[0].length;k++){
+			for (var l=0;l<effMatrix.length;l++){
+				var tx = constrain(0,parent.x + k - effMatrix[0].length/2, canvas.width);
+				var ty =  constrain(0,parent.y  + l - effMatrix.length/2 , canvas.height);
+				pixel = context.getImageData( tx, ty,1,1)
+				if (pixel){
+					for(var c=0; c<4;c++){
+						//console.log(imgData);
+						imgData.data[c] = constrain(0, effMatrix[l][k]*pixel.data[c] + imgData.data[c], 255);
+
 					}
 				}
+				//console.log(context,tx,ty);
+				context.putImageData(imgData,tx, ty);
 			}
-			//context.putImageData(imgData,tx, ty);
 		}
+
+		//context.putImageData(imgData,tx, ty);
+	
 	}
 }
 

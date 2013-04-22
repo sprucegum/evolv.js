@@ -34,9 +34,9 @@ function effectList(parent){
 }
 effectList.prototype.add = function(element){
 	this.list.push(element);
-	if (navigator.userAgent.search("Firefox") > 0){
+	if (navigator.userAgent.search("Firefox") > 0)
 		this.list.pop();
-};
+	
 };
 
 effectList.prototype.run = function (context){
