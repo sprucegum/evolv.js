@@ -4,15 +4,24 @@
 
 drippy = new Effect(function(context, parent){
 	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
+	accumulator = 0;
+	//console.log("running shizzle",parent);
+
 	for (var i=0; i< parent.width;i++){
 		for(var j=0; j < parent.height;j++){
+			accumulator += Math.random();
 			var rgba = [0,0,0,0];
-			imgData = context.getImageData(parent.x + i, parent.y + j,1 ,1 );
-			//console.log(imgData);	
-			if (Math.sin(2*Math.PI*(i/Math.random())) > 0.8){
-				for (var n = 2;n>=0;n--){
-					context.putImageData(imgData,parent.x + i, parent.y + j + n);
-				}
+			
+			angle = Math.sin(Math.PI*accumulator/100);
+			//console.log(parent.pixels.data[(i*parent.height + j*parent.width) + 3]);	
+			
+			if (0.001>Math.random())
+			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
+				//Spawn blurbot
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), paintKern, Math.round(20*Math.random()) + 15, angle);
+				parent.addChild(bB);
+				//console.log(angle); 
+
 			}
 		}				
 	}
@@ -93,7 +102,7 @@ function blurBot(x, y, parent, pather, kernel, lifetime, angle){
 
 }
 
-function dripKern (context, parent){
+function paintKern (context, parent){
 
 	//console.log(parent, context);
 	var tx = constrain(0,parent.x,canvas.width);
@@ -111,6 +120,41 @@ function dripKern (context, parent){
 						var tx = constrain(0,parent.x + k - 2, canvas.width);
 						var ty =  constrain(0,parent.y  + l - 4 , canvas.height);
 						pixel = context.getImageData( tx, ty,1,1)
+						if (pixel){
+							for(var c=0; c<4;c++){
+								//console.log(imgData);
+								imgData.data[c] = constrain(0, pixel.data[c], 255);
+		
+							}
+						}
+						//console.log(context,tx,ty);
+						context.putImageData(imgData,tx, ty);
+					}
+				}
+			}
+			//context.putImageData(imgData,tx, ty);
+		
+	}
+}
+function dripKern (context, parent){
+
+	//console.log(parent, context);
+	var tx = constrain(0,parent.x,canvas.width);
+	var ty = constrain(0,parent.y,canvas.height);
+	var imgData = context.getImageData(tx, ty, 1, 1 );
+	var size = Math.round(10*Math.sin(parent.angle)) + 2;
+	//console.log(parent.angle);
+	if (imgData){
+
+		
+			//context.putImageData(imgData, tx , ty );
+			if (true){
+				pixel = context.getImageData( parent.x, parent.y,1,1)
+				for (var k=0;k<size;k++){
+					for (var l=0;l<size;l++){
+						var tx = constrain(0,parent.x + k - 2, canvas.width);
+						var ty =  constrain(0,parent.y  + l - 4 , canvas.height);
+						
 						if (pixel){
 							for(var c=0; c<4;c++){
 								//console.log(imgData);
