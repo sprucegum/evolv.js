@@ -18,6 +18,31 @@ drippy = new Effect(function(context, parent){
 	}
 });
 
+drizzle = new Effect(function(context, parent){
+	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
+	accumulator = 0;
+	//console.log("running shizzle",parent);
+
+	for (var i=0; i< parent.width;i++){
+		for(var j=0; j < parent.height;j++){
+			accumulator += Math.random();
+			var rgba = [0,0,0,0];
+			
+			angle = Math.sin(Math.PI*accumulator/100);
+			//console.log(parent.pixels.data[(i*parent.height + j*parent.width) + 3]);	
+			
+			if (0.001>Math.random())
+			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
+				//Spawn blurbot
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), dripKern, Math.round(20*Math.random()) + 15, angle);
+				parent.addChild(bB);
+				//console.log(angle); 
+
+			}
+		}				
+	}
+});
+
 shizzle = new Effect(function(context, parent){
 	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
 	accumulator = 0;
@@ -57,18 +82,50 @@ function blurBot(x, y, parent, pather, kernel, lifetime, angle){
 	this.height = 3;
 	this.dx = Math.round(0.5*Math.sin(angle), canvas.width);
 	this.dy = Math.round(0.5*Math.cos(angle), canvas.width);
-	this.len = 4;
+	this.len = 16;
 	this.parent = parent;
 	this.pather = pather;
 	this.pather.parent = this;
 	this.ddy = 0.06;
-	this.angle;
+	this.angle = angle;
 	this.kernel = kernel
 	this.lifetime = lifetime;
 
 }
-blurBot.prototype.kernel = function(context, parent){
-	blurKern(this.parent,context);
+
+function dripKern (context, parent){
+
+	//console.log(parent, context);
+	var tx = constrain(0,parent.x,canvas.width);
+	var ty = constrain(0,parent.y,canvas.height);
+	var imgData = context.getImageData(tx, ty, 1, 1 );
+	var size = Math.round(10*Math.sin(parent.angle)) + 2;
+	//console.log(parent.angle);
+	if (imgData){
+
+		
+			//context.putImageData(imgData, tx , ty );
+			if (true){
+				for (var k=0;k<size;k++){
+					for (var l=0;l<size;l++){
+						var tx = constrain(0,parent.x + k - 2, canvas.width);
+						var ty =  constrain(0,parent.y  + l - 4 , canvas.height);
+						pixel = context.getImageData( tx, ty,1,1)
+						if (pixel){
+							for(var c=0; c<4;c++){
+								//console.log(imgData);
+								imgData.data[c] = constrain(0, pixel.data[c], 255);
+		
+							}
+						}
+						//console.log(context,tx,ty);
+						context.putImageData(imgData,tx, ty);
+					}
+				}
+			}
+			//context.putImageData(imgData,tx, ty);
+		
+	}
 }
 
 function blurKern (context, parent){
