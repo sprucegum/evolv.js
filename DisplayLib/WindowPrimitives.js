@@ -38,6 +38,7 @@ function textBlock(text,x,y,width, height, parent){
 	this.width = width;
 	this.size = parent.size;
 	this.draggable = false;
+	
 	// split up text and fit into block.
 	this.stext = text.split(" ");
 	var cursor = 0;
@@ -46,36 +47,49 @@ function textBlock(text,x,y,width, height, parent){
 	tcanvas.height = height;
 	tcanvas.width = width;
 	tctx = tcanvas.getContext("2d");
-	for (var i = 0; i < this.stext.length; i++){
+	var volume = height*width;
+	//console.log("volume",volume);
+	var textvolume = 0;
+	for (var i = 0;i < this.stext.length; i++){
 		word = new textLine(this.stext[i],cursor, line*(this.size), this.size);
 		
 		word.font = this.font;
 		word.width = word.textWidth(tctx);
 		//console.log(cursor + word.width, this.width)
-		if ((cursor + word.width) > this.width){
-			cursor = 0;
-			++line;
-			//console.log(line);
-			word.x = 0;
-			word.y = line*(this.size);
-		}
-		cursor += word.width + (0.75*this.size);
+		textvolume += (this.size)*(word.width + 0.75*this.size);
+		if (textvolume < volume){
+			if ((cursor + word.width) > this.width){
+				cursor = 0;
+				++line;
+				//console.log(line);
+				word.x = 0;
+				word.y = line*(this.size);
+			}
+			cursor += word.width + (0.75*this.size);
 
-		this.addChild(word);
+			this.addChild(word);
+		};
 		
 	}
+	this.textvolume = textvolume;
 }
 
 textBlock.prototype.resize = function(){
-	this.width += mouse.dx;
-	this.height += mouse.dy;
-	this.dispList = new displayList(this);
-	this.runList = new runList(this);
-	this.replacement = new textBlock(this.text, this.x, this.y, this.width, this.height, this.parent);
-	for (var i=0; i<this.replacement.dispList.list.length; i++){
-		this.addChild(this.replacement.dispList.list[i]);
+	
+	if (this.textvolume < ((this.width + mouse.dx)*(this.height + mouse.dy))){
+		this.parent.resizing = true;
+		this.width += mouse.dx;
+		this.height += mouse.dy;
+		this.dispList = new displayList(this);
+		this.runList = new runList(this);
+		this.replacement = new textBlock(this.text, this.x, this.y, this.width, this.height, this.parent);
+		for (var i=0; i<this.replacement.dispList.list.length; i++){
+			this.addChild(this.replacement.dispList.list[i]);
+		}
+		this.replacement = null;
+	} else {
+		this.parent.resizing = false;
 	}
-	this.replacement = null;
 	
 }
 /*
@@ -193,6 +207,7 @@ mouseCursor.prototype.move = function(e){
 mouseCursor.prototype.run = function(){
 	this.dx = this.x - this.lastx; 
 	this.dy = this.y - this.lasty; 
+	this.velocity = Math.sqrt(this.dx*this.dx + this.dy*this.dy);
 	this.lastx = this.x;
 	this.lasty = this.y;
 	this.runList.run();

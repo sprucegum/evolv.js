@@ -2,6 +2,21 @@
 	Canvas Handling Library
 */
 
+function getJSON(jsonObj, callback){
+	var rq = new XMLHttpRequest();
+	rq.open("GET", JSON.stringify(jsonObj), 1);
+	rq.onloadend = callback;
+	rq.send();
+
+}
+
+function postJSON(jsonObj, callback){
+	var rq = new XMLHttpRequest();
+	rq.open("POST", JSON.stringify(jsonObj), 1);
+	rq.onloadend = callback;
+	rq.send();
+}
+
 fitCanvas = function(canvas) {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;

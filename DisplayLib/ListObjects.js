@@ -25,6 +25,7 @@ runList.prototype.add = function(element){
 	}
 };
 
+
 effectList.prototype = new runList();
 effectList.constructor = effectList;
 function effectList(parent){

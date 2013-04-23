@@ -31,6 +31,8 @@ Effector = function(x, y, parent, pather, kernel, lifetime){
 	this.kernel = kernel;
 	this.lifetime = lifetime;
 }
+
+
 Effector.prototype.run = function(){
 	//console.log(this.lifetime);
 	if (this.lifetime > 0){ 
@@ -54,6 +56,7 @@ Effector.prototype.draw = function(context){
 	} else {
 		//console.log("deleting Effector", this);
 		this.parent.dispList.list.splice(parent.runningIndex,1);
+		effectcount--;
 	}
 	this.lifetime -= 1;
 }

@@ -18,6 +18,7 @@ windowObject = function(parent){
 	this.gy = 0;
 	this.minwidth = this.minheight = 0;
 	this.clickable = true;
+
 };
 windowObject.prototype.addChild = function(child) {
 	this.runList.add(child);

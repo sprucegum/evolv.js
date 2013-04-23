@@ -31,26 +31,31 @@ drizzle = new Effect(function(context, parent){
 	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
 	accumulator = 0;
 	//console.log("running shizzle",parent);
-
 	for (var i=0; i< parent.width;i++){
 		for(var j=0; j < parent.height;j++){
 			accumulator += Math.random();
 			var rgba = [0,0,0,0];
-			
+		
 			angle = Math.sin(Math.PI*accumulator/100);
 			//console.log(parent.pixels.data[(i*parent.height + j*parent.width) + 3]);	
 			
-			if (0.001>Math.random())
+			if ((Math.min(3,mouse.velocity)*0.001)>Math.random())
 			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
 				//Spawn blurbot
 				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), dripKern, Math.round(20*Math.random()) + 15, angle);
 				parent.addChild(bB);
+		
 				//console.log(angle); 
 
 			}
 		}				
 	}
 });
+
+// Effects are a little different, they don't necessarily need to be displayed
+// So I'll make a couple global constants to limit the overall effect count.
+MAXEFFECTS = 75;
+effectcount = 0;
 
 shizzle = new Effect(function(context, parent){
 	//console.log("blurring",parent.x,parent.y, parent.width, parent.height);
@@ -61,14 +66,14 @@ shizzle = new Effect(function(context, parent){
 		for(var j=0; j < parent.height;j++){
 			accumulator += Math.random();
 			var rgba = [0,0,0,0];
-			
+		
 			angle = Math.sin(Math.PI*accumulator/100);
 			//console.log(parent.pixels.data[(i*parent.height + j*parent.width) + 3]);	
-			
-			if (0.001>Math.random())
+		
+			if (Math.min(3,mouse.velocity)*0.0016>Math.random())
 			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
 				//Spawn blurbot
-				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), blurKern, Math.round(20*Math.random()) + 10, angle);
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), blurKern, Math.round(30*Math.random()) + 1, angle);
 				parent.addChild(bB);
 				//console.log(angle); 
 
@@ -99,6 +104,7 @@ function blurBot(x, y, parent, pather, kernel, lifetime, angle){
 	this.angle = angle;
 	this.kernel = kernel
 	this.lifetime = lifetime;
+	effectcount++;
 
 }
 
@@ -174,9 +180,9 @@ function dripKern (context, parent){
 
 function blurKern (context, parent){
 	effMatrix = [	
-		[2,0.0,0.0],
-		[0.0,0.0,0.0],
-		[0.0,0.0,0.0]
+		[0.5,0.0,0.0],
+		[0.5,0.0,0.0],
+		[0.5,0.0,0.0]
 
 	];
 	//console.log(parent, context);
