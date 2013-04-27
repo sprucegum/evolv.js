@@ -15,8 +15,8 @@
 
 */
 
-ConnectionManager = function(){
-	
+ConnectionManager = function(serverRoot){
+	this.serverRoot = serverRoot;
 
 };
 
@@ -26,14 +26,14 @@ ConnectionManager.prototype.returnJSON = function(jsonStr){
 
 ConnectionManager.prototype.getJSON = function(jsonObj, callback){
 	var rq = new XMLHttpRequest();
-	rq.open("GET", JSON.stringify(jsonObj), 1);
+	rq.open("GET", this.serverRoot + JSON.stringify(jsonObj), 1);
 	rq.onloadend = callback;
 	rq.send();
 };
 
 ConnectionManager.prototype.postJSON = function(jsonObj, callback){
 	var rq = new XMLHttpRequest();
-	rq.open("POST", JSON.stringify(jsonObj), 1);
+	rq.open("POST", this.serverRoot + JSON.stringify(jsonObj), 1);
 	rq.onloadend = callback;
 	rq.send();
 };
@@ -47,6 +47,7 @@ WindowManager = function (canvas, jsonList) {
 	this.height = canvas.height;
 	this.jsonList = jsonList;
 	this.padding = 10;
+	this.conMan = new ConnectionManager();
 	var win = null;
 	var cursor = [0,0]; // x, y
 	var cellsize = [0,0]; // width, height
@@ -74,6 +75,7 @@ WindowManager = function (canvas, jsonList) {
 			}
 			
 		}
+		cursor[0] = 0;
 		cursor[1] += cellsize[1];
 	    
 	}
@@ -94,7 +96,8 @@ WindowManager.prototype.buildWindow = function(windowJSON, width, height, x, y )
 	window = new textWindow(windowJSON.title,windowJSON.text,x,y,width, height);
     } else if (windowJSON.type == "textLine"){
 	console.log("textLine!");
-	window = new textLine(windowJSON.text,x,y,height);
+	window = new textLine(windowJSON.text,x,y,16);
+	window.draggable = true;
     }
 
     return window;

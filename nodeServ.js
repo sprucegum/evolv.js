@@ -6,6 +6,7 @@
 var http = require('http'),
     fs = require('fs'),
     url = require('url'),
+    mongo = require('mongodb'),
     index;
 var staticResource = require('static-resource');
 

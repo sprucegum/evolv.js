@@ -35,10 +35,6 @@
 			[1,1,0,0,1,0,1,0,1,1,0,0,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1]
 		];
 
-		textStrings = [	"Yes, Yes, Y'all!",
-				"Welcome to the website of",
-				"This, is mainly a test for my rudimentary canvas engine JTK"
-		];
 
 		imagelist = ["DisplayLib/cursor.png"];
 		cursorimg = new Image();
@@ -54,61 +50,25 @@
 			mouse.dispList.effList.add(drizzle);
 			ticks = 0;
 			
+			// Get the canvas
 			canvas = document.getElementById("evolvWorld");
 			canvas.dispList = new displayList();
 			canvas.runList = new runList();
 			canvas.runList.add(mouse);
 	
+			// Make the background
 			bg = new backGround();
 			canvas.dispList.parent = bg;
 			canvas.dispList.add(bg);
 			canvas.runList.add(bg);
+
+			// Make the pointer
 			mouse.parent = bg;
 			mouse.x = window.innerWidth/2;
 			mouse.y = window.innerHeight/2;
 			
 			
-			var bit_painter = new drawBits(Jade,8 + window.innerWidth/2,(8*5)+5,8);
-			bit_painter.color = "#444"
-			bit_painter.draggable = true;
-
-			textL = new textLine(textStrings[0],8,window.innerHeight - 72,64);
-			textL.draggable = true;
-			textL.font = "'wendy'";
-			textL.fill = "rgb(0,0,0)";
-			bg.addChild(textL);
-			tWs = [[
-				"Hello World",
-				"This is a test platform for JTK and its first application, evolv.js.",
-				window.innerWidth/2 - 150,
-				window.innerHeight/2 - 75,
-				300,
-				150],
-
-				[ "Sup Dogs",
-				"The intention of the JTK (Jade's Tool Kit) project is to create a web application framework "+
-				"which takes full advantage of the HTML5 canvas. " + "",
-				0,
-				0,
-				300,
-				150]
-			];
-			var tW = new textWindow(tWs[0][0],tWs[0][1],tWs[0][2],tWs[0][3],tWs[0][4],tWs[0][5]);
-			tW.font = "'F25'";
-			tW.fill = "rgb(0,0,0)";
-			//canvas.runList.add(tW);
-			bg.addChild(tW);
-
 			
-			tW = new textWindow(tWs[1][0],tWs[1][1],tWs[1][2],tWs[1][3],tWs[1][4], tWs[0][5]);
-			tW.font = "'F25'";
-			tW.fill = "rgb(0,0,0)";
-			//canvas.runList.add(tW);
-			bg.addChild(tW);
-					
-		
-
-			bg.addChild(bit_painter);
 
 			var bit_painterhl = new drawBits(Jade, bit_painter.width/2 -8,-8,8);
 			bit_painter.parent = bg;
