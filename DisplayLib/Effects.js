@@ -18,7 +18,8 @@ drippy = new Effect(function(context, parent){
 			if (0.001>Math.random())
 			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
 				//Spawn blurbot
-				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), paintKern, Math.round(20*Math.random()) + 15, angle);
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), paintKern, Math.round(10*Math.random()) + 10, angle);
+				
 				parent.addChild(bB);
 				//console.log(angle); 
 
@@ -42,7 +43,8 @@ drizzle = new Effect(function(context, parent){
 			if ((Math.min(3,mouse.velocity)*0.001)>Math.random())
 			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
 				//Spawn blurbot
-				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), dripKern, Math.round(20*Math.random()) + 15, angle);
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), dripKern, Math.round(10*Math.random()) + 10, angle);
+				
 				parent.addChild(bB);
 		
 				//console.log(angle); 
@@ -73,7 +75,7 @@ shizzle = new Effect(function(context, parent){
 			if (Math.min(3,mouse.velocity)*0.0016>Math.random())
 			if (parent.pixels.data[4*(i + j*parent.width) + 3] != 0){ //If not transparent
 				//Spawn blurbot
-				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), blurKern, Math.round(30*Math.random()) + 1, angle);
+				var bB = new blurBot(parent.x + i, parent.y + j, parent, new Pather(null, testPather), blurKern, Math.round(10*Math.random()) + 10, angle);
 				parent.addChild(bB);
 				//console.log(angle); 
 
