@@ -25,7 +25,6 @@ runList.prototype.add = function(element){
 	}
 };
 
-
 effectList.prototype = new runList();
 effectList.constructor = effectList;
 function effectList(parent){
@@ -72,12 +71,7 @@ function displayList(parent){
 	this.effList = new effectList(this.parent);
 
 }
-// List needs a sort function to ensure the right object is rendered first in each stack
-displayList.prototype.toFront = function (item){
-	this.list.splice(this.list.indexOf(item),1);
-	this.list.push(item);
-	
-}
+
 
 displayList.prototype.draw = function(context){
 	if (this.list.length > 0){
@@ -89,9 +83,15 @@ displayList.prototype.draw = function(context){
 	};
 	this.effList.run(context);
 }
+displayList.prototype.toFront = function (item){
+	//console.log("toFront:",item, this.list);
+	this.list.splice(this.list.indexOf(item),1);
+	this.list.push(item);
+}
+
 displayList.prototype.click = function(e){
 	if (this.list.length > 0){
-		for (var i=0;i<this.list.length;i++){
+		for (var i = this.list.length - 1 ;i >= 0 ;i--){
 			if (this.list[i].clickable){
 				if (this.parent)
 					this.parent.runningIndex = i;
