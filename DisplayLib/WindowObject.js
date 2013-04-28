@@ -123,6 +123,7 @@ windowObject.prototype.click = function(e) {
 			if (e.type == "mousedown"){
 				if (this.draggable){
 					this.dragging = true;
+					this.parent.dispList.toFront(this);
 					console.log(this);
 					return true;
 				}

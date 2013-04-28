@@ -68,14 +68,14 @@ WindowManager.prototype.buildWindows = function(jsonList){
 	var cursor = [0,0]; // x, y
 	var cellsize = [0,0]; // width, height
 	var canvas = this.canvas;
-	console.log("jsonList",jsonList);
+	//console.log("jsonList",jsonList);
 	// Major rows
 	for (var i = 0; i<jsonList.length; i++) {
 	   	//console.log("i", i);
 		// columns
 		for (var j = 0; j<jsonList[i].length; j++){
 		    	//console.log("j",j);
-			console.log(jsonList[i][j]);
+			//console.log(jsonList[i][j]);
 			cellsize[0] = canvas.width/jsonList[i].length;
 			cellsize[1] = canvas.height/jsonList.length;
 			win = this.buildWindow(
@@ -107,10 +107,10 @@ WindowManager.prototype.buildWindows = function(jsonList){
 WindowManager.prototype.buildWindow = function(windowJSON, width, height, x, y ) {
     var window = null;
     if (windowJSON.type == "textWindow"){
-	console.log("textWin!");
+	//console.log("textWin!");
 	window = new textWindow(windowJSON.title,windowJSON.text,x,y,width, height);
     } else if (windowJSON.type == "textLine"){
-	console.log("textLine!");
+	//console.log("textLine!");
 	window = new textLine(windowJSON.text,x+(width/2),y + (height/2) - 64,128);
 	window.draggable = true;
 	window.x = window.x - (window.textWidth()/2);

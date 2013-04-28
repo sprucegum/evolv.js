@@ -9,8 +9,10 @@ function textWindow(title,text,x,y,width, height){
 	this.text = text;
 	this.x = x;
 	this.y = y;
-	this.stroke = "rgba(0,0,0,128)";
-	this.fill = "rgba(255,255,255,64)";
+	this.stroke = "rgb(0,0,0)";
+	this.fill = "rgb(255,255,255)";
+	this.outline = "#507";
+	//this.outline = "rgb(190,0,180)"
 
 	this.font = "Verdana";
 	this.height = height;
@@ -18,7 +20,7 @@ function textWindow(title,text,x,y,width, height){
 	this.size = 20;
 	this.draggable = true;
 	this.addChild(new textLine(title, 4, 0, this.size + 4));
-	this.addChild(new textBlock(text, 0, this.size +8, width, height - (this.size +8) , this));
+	this.addChild(new textBlock(text, 2, this.size +8, width - 4, height - (this.size + 10) , this));
 	this.minwidth = 20;
 	this.decorate();
 }

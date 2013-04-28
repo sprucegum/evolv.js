@@ -73,6 +73,12 @@ function displayList(parent){
 
 }
 // List needs a sort function to ensure the right object is rendered first in each stack
+displayList.prototype.toFront = function (item){
+	this.list.splice(this.list.indexOf(item),1);
+	this.list.push(item);
+	
+}
+
 displayList.prototype.draw = function(context){
 	if (this.list.length > 0){
 		for (var i=0;i<this.list.length;i++){
