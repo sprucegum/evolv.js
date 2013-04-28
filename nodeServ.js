@@ -6,9 +6,11 @@
 var http = require('http'),
     fs = require('fs'),
     url = require('url'),
-    mongoClient = require('mongodb').MongoClient,
+    mongo = require('mongodb'),
     index;
+var mongoServer = new mongo.Server("127.0.0.1",27017);
 var staticResource = require('static-resource');
+var db_connector = new mongo.Db("JTK", mongoServer);
 
 
 
