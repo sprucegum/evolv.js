@@ -28,12 +28,6 @@
 		// Static variables, images, etc
 		PIXEL = 12;
 		BLOCK = 4*PIXEL;
-		Jade = [[1,1,1,0,1,1,1,0,1,1,0,0,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,1,1,1,0,1,1,1],
-			[0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0],
-			[0,1,0,0,1,1,1,0,1,0,1,0,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,0,0,1,1,1,0,1,1,1],
-			[0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0],
-			[1,1,0,0,1,0,1,0,1,1,0,0,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1]
-		];
 
 
 		imagelist = ["DisplayLib/cursor.png"];
@@ -68,15 +62,10 @@
 			mouse.y = window.innerHeight/2;
 			
 			
-			
-
-			var bit_painterhl = new drawBits(Jade, bit_painter.width/2 -8,-8,8);
-			bit_painter.parent = bg;
-			bit_painterhl.color = "#AAA";
-			bit_painterhl.parent = bit_painter;
-			bit_painter.addChild(bit_painterhl);
 			canvas.dispList.add(mouse);
 			
+			wm = new WindowManager(canvas);
+			wm.start();
 	
 			context = canvas.getContext("2d");
 			
@@ -90,6 +79,8 @@
 			canvas.oncontextmenu = function(e){
 				canvas.dispList.click(e);	
 			};
+			
+
 			fitCanvas(canvas);
 			main();
 		};
