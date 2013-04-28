@@ -149,7 +149,23 @@ function backGround(){
 	this.width = window.innerWidth;
 	this.height = window.innerHeight;
 };
+
 backGround.prototype.draw = function (context){
+
+	context.fillStyle = "rgb(0,0,20)";
+	context.fillRect(0,0,this.width,this.height);
+
+	this.dispList.draw(context);
+};
+
+fancyBackGround.prototype = new backGround();
+
+fancyBackGround.constructor = fancyBackGround;
+function fancyBackGround(){
+	backGround.call(this);
+}
+
+fancyBackGround.prototype.draw = function (context){
 	rs = BLOCK; // Rect Size
 	ilim = window.innerWidth/rs;
 	jlim = window.innerHeight/rs;
