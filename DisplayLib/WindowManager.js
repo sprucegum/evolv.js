@@ -111,8 +111,9 @@ WindowManager.prototype.buildWindow = function(windowJSON, width, height, x, y )
 	window = new textWindow(windowJSON.title,windowJSON.text,x,y,width, height);
     } else if (windowJSON.type == "textLine"){
 	console.log("textLine!");
-	window = new textLine(windowJSON.text,x,y,64);
+	window = new textLine(windowJSON.text,x+(width/2),y + (height/2) - 64,128);
 	window.draggable = true;
+	window.x = window.x - (window.textWidth()/2);
     }
 
     return window;

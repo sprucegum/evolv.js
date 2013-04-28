@@ -115,8 +115,18 @@ function textLine(text,x,y,size){
 	//console.log(this);
 }
 textLine.prototype.textWidth = function(context){
+	var temp_canvas = null;
+	if (context == null){
+		temp_canvas = document.createElement('textsizer');
+		context = canvas.getContext('2d');
+	}
 	context.font= this.size + "px" + this.font;
-	return context.measureText(this.text).width;
+	var width = context.measureText(this.text).width;
+	if (temp_canvas){
+		
+	};
+	return width;
+
 }
 
 textLine.prototype.draw = function(context){
