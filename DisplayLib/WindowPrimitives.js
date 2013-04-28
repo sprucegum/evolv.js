@@ -12,10 +12,10 @@ function textWindow(title,text,x,y,width, height){
 	this.stroke = "rgba(0,0,0,128)";
 	this.fill = "rgba(255,255,255,64)";
 
-	this.font = "'F25'";
+	this.font = "Verdana";
 	this.height = height;
 	this.width = width;
-	this.size = 16;
+	this.size = 20;
 	this.draggable = true;
 	this.addChild(new textLine(title, 4, 0, this.size + 4));
 	this.addChild(new textBlock(text, 0, this.size +8, width, height - (this.size +8) , this));
@@ -33,7 +33,7 @@ function textBlock(text,x,y,width, height, parent){
 	this.y = y;
 	this.color = "#406";
 	this.outline = "#406";
-	this.font = "'F25'";
+	this.font = "'Verdana'";
 	this.height = height;
 	this.width = width;
 	this.size = parent.size;
@@ -108,7 +108,7 @@ function textLine(text,x,y,size){
 	this.y = y;
 	this.stroke = "rgba(0,0,0,128)";
 	this.fill = "rgba(255,255,255,64)";
-	this.font = "'F25'"
+	this.font = "'Verdana'"
 	this.height = size;
 	this.size = size;
 	this.draggable = false;
@@ -152,7 +152,7 @@ function backGround(){
 
 backGround.prototype.draw = function (context){
 
-	context.fillStyle = "rgb(0,0,20)";
+	context.fillStyle = "rgb(20,0,50)";
 	context.fillRect(0,0,this.width,this.height);
 
 	this.dispList.draw(context);

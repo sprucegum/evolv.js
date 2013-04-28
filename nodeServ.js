@@ -17,7 +17,7 @@ var handler = staticResource.createHandler(fs.realpathSync('./'));
 
 windows = [
 	[{"type":"textLine", "text":"JTK"},{"type":"textWindow","title":"About This Site" ,"text":"This website is a demonstration of the server-client methodology of JTK"}],
-	[{"type":"textWindow","title":"About JTK" ,"text":"JTK is an experimental canvas application framework. It is built for the Chromium browser and is designed to stress the CPU. "},{"type":"textWindow","title":"About Me" ,"text":"Since it was probably me that linked you to this, you probably know I am Jade Lacosse, purveyor of pointless programs!"}]
+	[{"type":"textWindow","title":"About JTK" ,"text":"JTK is an experimental canvas application framework. It is built for the Chromium browser and is designed to stress the CPU. "},{"type":"textWindow","title":"About Me" ,"text":"Since it was probably me that linked you to this, you probably know I am Jade Lacosse, purveyor of pointless programs!"},{"type":"textWindow","title":"About the future" ,"text":"As JTK develops, it will effectively become a real-time, multi-user operating system for canvas based web apps."}]
 ];
 
 http.createServer(function (req, res) {

@@ -46,7 +46,7 @@ WindowManager = function (canvas) {
 	this.canvas = canvas;
 	this.width = canvas.width;
 	this.height = canvas.height;
-	this.padding = 50;
+	this.padding = 20;
 	this.conMan = new ConnectionManager('/');
 	
 }
