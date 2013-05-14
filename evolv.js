@@ -39,7 +39,6 @@ organNode.prototype.reproduce = function(inSig,outSig){
 	
 
 	//external signals ... enable, disable
-taylor series
 	//internal ISA
 	//one code for each organ, placement
 	// create, modify, or delete (absorb) nodes

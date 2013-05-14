@@ -6,23 +6,26 @@
 var http = require('http'),
     fs = require('fs'),
     url = require('url'),
-    mongo = require('mongodb'),
     index;
-var mongoServer = new mongo.Server("127.0.0.1",27017);
+
+
+var nano = require('nano')('http://localhost:5984');
+var jdb = nano.use('jdb');
+
 var staticResource = require('static-resource');
-var db_connector = new mongo.Db("JTK", mongoServer);
 
 
 
 var handler = staticResource.createHandler(fs.realpathSync('./'));
 //handler.addContentType('.ttf', 'application/octet-stream');
 
-windows = [
-	[{"type":"textLine", "text":"JTK"},{"type":"textWindow","title":"About This Site" ,"text":"This website is a demonstration of the server-client methodology of JTK"}],
-	[{"type":"textWindow","title":"About JTK" ,"text":"JTK is an experimental canvas application framework. It is built for the Chromium browser and is designed to stress the CPU. "},{"type":"textWindow","title":"About Me" ,"text":"Since it was probably me that linked you to this, you probably know I am Jade Lacosse, purveyor of pointless programs!"},{"type":"textWindow","title":"About the future" ,"text":"As JTK develops, it will effectively become a real-time, multi-user operating system for canvas based web apps."}]
-];
+
+var win = {test:'test'};
+jdb.get('main', function(err,body){win=body});
+
 
 http.createServer(function (req, res) {
+  console.log(win);
   var qParsed = url.parse(req.url, true);
   var qData = qParsed.query;
   var qPath = qParsed.pathname;
@@ -32,9 +35,10 @@ http.createServer(function (req, res) {
   var path = url.parse(req.url).pathname;
  console.log("qData", qData);
  if (qData.jtk){
+
 	console.log("JSON");	
 	res.writeHead(200, {'Content-Type': 'text/json'});
-	rJSON = JSON.stringify(windows);
+	rJSON = JSON.stringify(win.windows);
 	res.write(rJSON);
   } else if(!handler.handle(path, req, res)) {
 	console.log(qPath);
@@ -44,7 +48,7 @@ http.createServer(function (req, res) {
   }
   res.end('');
   
-}).listen(1337, '192.168.0.29');
+}).listen(1337, '192.168.0.14');
 
 console.log('Server running at http://127.0.0.1:1337/');
 

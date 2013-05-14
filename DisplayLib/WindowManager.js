@@ -51,7 +51,7 @@ WindowManager = function (canvas) {
 	
 }
 WindowManager.prototype.start = function(){
-	var winset = this.getWindowSet("main_page");
+	var winset = this.getWindowSet("main");
 };
 
 WindowManager.prototype.getWindowSet = function(set_name){
